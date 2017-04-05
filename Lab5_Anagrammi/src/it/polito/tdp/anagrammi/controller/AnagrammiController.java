@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import it.polito.tdp.anagrammi.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -39,7 +41,21 @@ public class AnagrammiController {
     @FXML
     void doAnagramma(ActionEvent event) {
 
-    	m.findAnagrams(txtWord.getText());
+    	String word = txtWord.getText();
+    	
+    	word = word.toLowerCase();
+    	
+    	if(!word.matches("[a-z]*")){
+    	
+	    	Alert alert = new Alert(AlertType.WARNING);
+	    	alert.setTitle("Errore");
+	    	alert.setHeaderText("Inserisci una parola con solo caratteri");
+	    	//alert.setContentText("");
+	    	alert.showAndWait();
+	    	return ;
+	    	
+    	}
+    	m.findAnagrams(word);
     	
     	List<String> aR = m.getAnagrammiR() ;
     	List<String> aW = m.getAnagrammiW() ;
